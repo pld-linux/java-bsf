@@ -1,0 +1,61 @@
+Summary: 	Bean Scripting Framework
+Name:		bsf
+Version:	2.2
+Release:	1
+License:	IBM Public License
+Group:		Development/Languages/Java
+Group(de):	Entwicklung/Sprachen/Java
+Group(pl):	Programowanie/Jêzyki/Java
+Source0:	ftp://www-126.ibm.com/pub/%{name}/%{name}-src-%{version}.tar.gz
+URL:		http://www-124.ibm.com/developerworks/projects/bsf
+BuildRequires:	ibm-java-sdk
+BuildArch:	noarch
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_javalibdir	/usr/share/java
+
+%description
+Bean Scripting Framework
+
+%package doc
+Group:		Development/Languages/Java
+Group(de):	Entwicklung/Sprachen/Java
+Group(pl):	Programowanie/Jêzyki/Java
+Summary:	Bean Scripting Framework documentation
+
+%description doc
+Bean Scripting Framework documentation
+
+%prep
+%setup -q -n bsf-2_2
+
+%build
+cd $RPM_BUILD_DIR/bsf-2_2/src
+mkdir -p build/javadoc
+
+javac com/ibm/bsf/Main.java -d build
+javadoc -d build/javadoc -use -splitIndex com.ibm.bsf
+
+cd $RPM_BUILD_DIR/bsf-2_2/src/build
+jar cvf bsf.jar com
+
+%install
+rm -rf $RPM_BUILD_ROOT
+
+install -d $RPM_BUILD_ROOT/%{_javalibdir}
+cp src/build/*.jar $RPM_BUILD_ROOT/%{_javalibdir}
+
+gzip -9nf license.html
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(644,root,root,755)
+%doc *.gz
+%dir %{_javalibdir}
+%{_javalibdir}/*.jar
+
+%files doc
+%defattr(644,root,root,755)
+%doc src/build/javadoc/*
