@@ -6,7 +6,7 @@ Release:	1
 License:	IBM Public License
 Group:		Development/Languages/Java
 Source0:	ftp://www-126.ibm.com/pub/%{name}/%{name}-src-%{version}.tar.gz
-URL:		http://www-124.ibm.com/developerworks/projects/bsf
+URL:		http://www-124.ibm.com/developerworks/projects/bsf/
 BuildRequires:	ibm-java-sdk
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
