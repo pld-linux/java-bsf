@@ -1,4 +1,4 @@
-Summary: 	Bean Scripting Framework
+Summary:	Bean Scripting Framework
 Summary(pl):	Bean Scripting Framework - ¶rodowisko skryptowe
 Name:		bsf
 Version:	2.2
