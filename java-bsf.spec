@@ -49,14 +49,12 @@ install -d $RPM_BUILD_ROOT%{_javalibdir}
 
 install src/build/*.jar $RPM_BUILD_ROOT%{_javalibdir}
 
-gzip -9nf license.html
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc license.html
 %dir %{_javalibdir}
 %{_javalibdir}/*.jar
 
