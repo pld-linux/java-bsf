@@ -5,8 +5,6 @@ Version:	2.2
 Release:	1
 License:	IBM Public License
 Group:		Development/Languages/Java
-Group(de):	Entwicklung/Sprachen/Java
-Group(pl):	Programowanie/Jêzyki/Java
 Source0:	ftp://www-126.ibm.com/pub/%{name}/%{name}-src-%{version}.tar.gz
 URL:		http://www-124.ibm.com/developerworks/projects/bsf
 BuildRequires:	ibm-java-sdk
@@ -25,8 +23,6 @@ Bean Scripting Framework - ¶rodowisko skryptowe.
 Summary:	Bean Scripting Framework documentation
 Summary(pl):	Dokumentacja do Bean Scripting Framework
 Group:		Development/Languages/Java
-Group(de):	Entwicklung/Sprachen/Java
-Group(pl):	Programowanie/Jêzyki/Java
 
 %description doc
 Bean Scripting Framework documentation.
