@@ -1,14 +1,13 @@
 Summary:	Bean Scripting Framework
 Summary(pl):	Bean Scripting Framework - ¶rodowisko skryptowe
 Name:		bsf
-Version:	2.2
-Release:	1
+Version:	2.3.0
+Release:	0.rc1.1
 License:	IBM Public License
 Group:		Development/Languages/Java
-Source0:	ftp://www-126.ibm.com/pub/%{name}/%{name}-src-%{version}.tar.gz
-# Source0-md5:	d694cca9ab68e9acf458509fb8c97d8f
-URL:		http://www-124.ibm.com/developerworks/projects/bsf/
-BuildRequires:	ibm-java-sdk
+Source0:	http://cvs.apache.org/dist/jakarta/bsf/v2.3.0rc1/src/%{name}-src-%{version}.tar.gz
+# Source0-md5:	78bae3747ca5734bb7554eed6868b7da
+URL:		http://jakarta.apache.org/bsf/
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
