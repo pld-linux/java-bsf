@@ -1,4 +1,5 @@
 Summary: 	Bean Scripting Framework
+Summary(pl):	Bean Scripting Framework - ¶rodowisko skryptowe
 Name:		bsf
 Version:	2.2
 Release:	1
@@ -15,16 +16,23 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_javalibdir	/usr/share/java
 
 %description
-Bean Scripting Framework
+Bean Scripting Framework.
+
+%description -l pl
+Bean Scripting Framework - ¶rodowisko skryptowe.
 
 %package doc
+Summary:	Bean Scripting Framework documentation
+Summary(pl):	Dokumentacja do Bean Scripting Framework
 Group:		Development/Languages/Java
 Group(de):	Entwicklung/Sprachen/Java
 Group(pl):	Programowanie/Jêzyki/Java
-Summary:	Bean Scripting Framework documentation
 
 %description doc
-Bean Scripting Framework documentation
+Bean Scripting Framework documentation.
+
+%description doc -l pl
+Dokumentacja do Bean Scripting Framework.
 
 %prep
 %setup -q -n bsf-2_2
@@ -41,9 +49,9 @@ jar cvf bsf.jar com
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_javalibdir}
 
-install -d $RPM_BUILD_ROOT/%{_javalibdir}
-cp src/build/*.jar $RPM_BUILD_ROOT/%{_javalibdir}
+install src/build/*.jar $RPM_BUILD_ROOT%{_javalibdir}
 
 gzip -9nf license.html
 
