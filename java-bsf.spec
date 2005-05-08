@@ -3,22 +3,20 @@ Summary(pl):	Bean Scripting Framework - ¶rodowisko skryptowe
 Name:		bsf
 Version:	2.3.0
 Release:	0.rc1.1
-License:	IBM Public License
+License:	Apache v1.1
 Group:		Development/Languages/Java
 Source0:	http://cvs.apache.org/dist/jakarta/bsf/v2.3.0rc1/src/%{name}-src-%{version}.tar.gz
 # Source0-md5:	78bae3747ca5734bb7554eed6868b7da
 URL:		http://jakarta.apache.org/bsf/
-BuildRequires:	jakarta-ant
 BuildRequires:	jacl
-BuildRequires:	jpython
-BuildRequires:	xalan-j
-BuildRequires:	rhino
+BuildRequires:	jakarta-ant
 BuildRequires:	jython
 BuildRequires:	netrexx
+#BuildRequires:	rhino < 1.5R4
+BuildRequires:	sed >= 4.0
+BuildRequires:	xalan-j
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_javalibdir	%{_datadir}/java
 
 %description
 Bean Scripting Framework.
@@ -39,26 +37,35 @@ Dokumentacja do Bean Scripting Framework.
 
 %prep
 %setup -q
+# cleanup
+rmdir ../bsf
+
+# hack to disable rhino engine (not ready for new rhino debugger API)
+sed -i -e 's/available property="rhino.present/available property="rhino.blah/' \
+	src/bsf/build.xml
+
+# jython obsoleted jpython long time ago - don't try to build
+sed -i -e 's/available property="jpython.present/available property="jpython.blah/' \
+	src/bsf/build.xml
 
 %build
 cd src
-ant
+ant compile javadocs
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_javalibdir}
+install -d $RPM_BUILD_ROOT%{_javadir}
 
-install src/build/*.jar $RPM_BUILD_ROOT%{_javalibdir}
+install src/build/lib/bsf.jar $RPM_BUILD_ROOT%{_javadir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc license.html
-%dir %{_javalibdir}
-%{_javalibdir}/*.jar
+%doc license.txt src/{AUTHORS,CHANGES,README,TODO}
+%{_javadir}/*.jar
 
 %files doc
 %defattr(644,root,root,755)
-%doc src/build/javadoc/*
+%doc src/build/javadocs/*
