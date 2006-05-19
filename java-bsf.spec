@@ -9,7 +9,7 @@ Source0:	http://cvs.apache.org/dist/jakarta/bsf/v2.3.0rc1/src/%{name}-src-%{vers
 # Source0-md5:	78bae3747ca5734bb7554eed6868b7da
 URL:		http://jakarta.apache.org/bsf/
 BuildRequires:	jacl
-BuildRequires:	jakarta-ant
+BuildRequires:	ant
 BuildRequires:	jython
 BuildRequires:	netrexx
 #BuildRequires:	rhino < 1.5R4
