@@ -2,7 +2,7 @@ Summary:	Bean Scripting Framework
 Summary(pl):	Bean Scripting Framework - ¶rodowisko skryptowe
 Name:		bsf
 Version:	2.3.0
-Release:	1
+Release:	2
 License:	Apache v1.1
 Group:		Development/Languages/Java
 Source0:	http://cvs.apache.org/dist/jakarta/bsf/v2.3.0rc1/src/%{name}-src-%{version}.tar.gz
