@@ -2,18 +2,18 @@ Summary:	Bean Scripting Framework
 Summary(pl):	Bean Scripting Framework - ¶rodowisko skryptowe
 Name:		bsf
 Version:	2.3.0
-Release:	3
+Release:	4
 License:	Apache v1.1
 Group:		Development/Languages/Java
 Source0:	http://cvs.apache.org/dist/jakarta/bsf/v2.3.0rc1/src/%{name}-src-%{version}.tar.gz
 # Source0-md5:	78bae3747ca5734bb7554eed6868b7da
 URL:		http://jakarta.apache.org/bsf/
-BuildRequires:	jacl
 BuildRequires:	ant
+BuildRequires:	jacl
+BuildRequires:	jpackage-utils
 BuildRequires:	jython
 BuildRequires:	netrexx
 #BuildRequires:	rhino < 1.5R4
-BuildRequires:	jpackage-utils
 BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	sed >= 4.0
 BuildRequires:	xalan-j
@@ -31,6 +31,7 @@ Bean Scripting Framework - ¶rodowisko skryptowe.
 Summary:	Bean Scripting Framework documentation
 Summary(pl):	Dokumentacja do Bean Scripting Framework
 Group:		Development/Languages/Java
+Requires:	jpackage-utils
 Obsoletes:	bsf-doc
 
 %description javadoc
@@ -54,7 +55,7 @@ sed -i -e 's/available property="jpython.present/available property="jpython.bla
 export CLASSPATH="`build-classpath jacl jython NetRexxC NetRexxR xalan xsltc`"
 export JAVA_HOME="%{java_home}"
 cd src
-ant compile javadocs
+%ant compile javadocs
 
 %install
 rm -rf $RPM_BUILD_ROOT
