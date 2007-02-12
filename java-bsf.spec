@@ -1,5 +1,5 @@
 Summary:	Bean Scripting Framework
-Summary(pl.UTF-8):   Bean Scripting Framework - środowisko skryptowe
+Summary(pl.UTF-8):	Bean Scripting Framework - środowisko skryptowe
 Name:		bsf
 Version:	2.3.0
 Release:	4
@@ -29,7 +29,7 @@ Bean Scripting Framework - środowisko skryptowe.
 
 %package javadoc
 Summary:	Bean Scripting Framework documentation
-Summary(pl.UTF-8):   Dokumentacja do Bean Scripting Framework
+Summary(pl.UTF-8):	Dokumentacja do Bean Scripting Framework
 Group:		Development/Languages/Java
 Requires:	jpackage-utils
 Obsoletes:	bsf-doc
