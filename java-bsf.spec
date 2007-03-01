@@ -2,7 +2,7 @@ Summary:	Bean Scripting Framework
 Summary(pl.UTF-8):	Bean Scripting Framework - środowisko skryptowe
 Name:		bsf
 Version:	2.3.0
-Release:	4
+Release:	5
 License:	Apache v1.1
 Group:		Development/Languages/Java
 Source0:	http://cvs.apache.org/dist/jakarta/bsf/v2.3.0rc1/src/%{name}-src-%{version}.tar.gz
@@ -11,7 +11,6 @@ URL:		http://jakarta.apache.org/bsf/
 BuildRequires:	ant
 BuildRequires:	jacl
 BuildRequires:	jpackage-utils
-BuildRequires:	jython
 BuildRequires:	netrexx
 #BuildRequires:	rhino < 1.5R4
 BuildRequires:	rpmbuild(macros) >= 1.300
