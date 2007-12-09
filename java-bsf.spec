@@ -1,3 +1,4 @@
+%include	/usr/lib/rpm/macros.java
 Summary:	Bean Scripting Framework
 Summary(pl.UTF-8):	Bean Scripting Framework - środowisko skryptowe
 Name:		bsf
@@ -13,11 +14,12 @@ BuildRequires:	jacl
 BuildRequires:	jpackage-utils
 BuildRequires:	netrexx
 #BuildRequires:	rhino < 1.5R4
+BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	sed >= 4.0
 BuildRequires:	xalan-j
+Requires:	jpackage-utils
 BuildArch:	noarch
-ExclusiveArch:	i586 i686 pentium3 pentium4 athlon %{x8664} noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -29,7 +31,7 @@ Bean Scripting Framework - środowisko skryptowe.
 %package javadoc
 Summary:	Bean Scripting Framework documentation
 Summary(pl.UTF-8):	Dokumentacja do Bean Scripting Framework
-Group:		Development/Languages/Java
+Group:		Documentation
 Requires:	jpackage-utils
 Obsoletes:	bsf-doc
 
@@ -51,22 +53,26 @@ sed -i -e 's/available property="jpython.present/available property="jpython.bla
 	src/bsf/build.xml
 
 %build
-export CLASSPATH="`build-classpath jacl jython NetRexxC NetRexxR xalan xsltc`"
-export JAVA_HOME="%{java_home}"
-cd src
-%ant compile javadocs
+required_jars="jacl jython NetRexxC NetRexxR xalan xsltc"
+export CLASSPATH=$(build-classpath $required_jars)
+%ant -f src/build.xml compile javadocs
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_javadir},%{_javadocdir}/%{name}-%{version}}
+install -d $RPM_BUILD_ROOT%{_javadir}
 
 install src/build/lib/%{name}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
 ln -s %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 
-cp -R src/build/javadocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+install -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+cp -a src/build/javadocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name} # ghost symlink
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post javadoc
+ln -nfs %{name}-%{version} %{_javadocdir}/%{name}
 
 %files
 %defattr(644,root,root,755)
@@ -75,4 +81,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files javadoc
 %defattr(644,root,root,755)
-%doc %{_javadocdir}/%{name}-%{version}
+%{_javadocdir}/%{name}-%{version}
+%ghost %{_javadocdir}/%{name}
