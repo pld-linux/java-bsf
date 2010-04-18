@@ -1,12 +1,15 @@
 %include	/usr/lib/rpm/macros.java
+#
+%define		pkgname	bsf
+#
 Summary:	Bean Scripting Framework
 Summary(pl.UTF-8):	Bean Scripting Framework - środowisko skryptowe
-Name:		bsf
+Name:		java-%{pkgname}
 Version:	2.3.0
-Release:	5
+Release:	1
 License:	Apache v1.1
 Group:		Development/Languages/Java
-Source0:	http://cvs.apache.org/dist/jakarta/bsf/v2.3.0rc1/src/%{name}-src-%{version}.tar.gz
+Source0:	http://cvs.apache.org/dist/jakarta/bsf/v2.3.0rc1/src/%{pkgname}-src-%{version}.tar.gz
 # Source0-md5:	78bae3747ca5734bb7554eed6868b7da
 URL:		http://jakarta.apache.org/bsf/
 BuildRequires:	ant
@@ -42,7 +45,7 @@ Bean Scripting Framework documentation.
 Dokumentacja do Bean Scripting Framework.
 
 %prep
-%setup -q
+%setup -qn %{pkgname}-%{version}
 
 # hack to disable rhino engine (not ready for new rhino debugger API)
 sed -i -e 's/available property="rhino.present/available property="rhino.blah/' \
@@ -61,18 +64,18 @@ export CLASSPATH=$(build-classpath $required_jars)
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_javadir}
 
-install src/build/lib/%{name}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
-ln -s %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
+install src/build/lib/%{pkgname}.jar $RPM_BUILD_ROOT%{_javadir}/%{pkgname}-%{version}.jar
+ln -s %{pkgname}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{pkgname}.jar
 
-install -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-cp -a src/build/javadocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name} # ghost symlink
+install -d $RPM_BUILD_ROOT%{_javadocdir}/%{pkgname}-%{version}
+cp -a src/build/javadocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{pkgname}-%{version}
+ln -s %{pkgname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{pkgname} # ghost symlink
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post javadoc
-ln -nfs %{name}-%{version} %{_javadocdir}/%{name}
+ln -nfs %{pkgname}-%{version} %{_javadocdir}/%{pkgname}
 
 %files
 %defattr(644,root,root,755)
@@ -81,5 +84,5 @@ ln -nfs %{name}-%{version} %{_javadocdir}/%{name}
 
 %files javadoc
 %defattr(644,root,root,755)
-%{_javadocdir}/%{name}-%{version}
-%ghost %{_javadocdir}/%{name}
+%{_javadocdir}/%{pkgname}-%{version}
+%ghost %{_javadocdir}/%{pkgname}
