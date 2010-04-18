@@ -15,12 +15,12 @@ URL:		http://jakarta.apache.org/bsf/
 BuildRequires:	ant
 BuildRequires:	jacl
 BuildRequires:	jpackage-utils
-BuildRequires:	netrexx
-#BuildRequires:	rhino < 1.5R4
+BuildRequires:	java-netrexx
+#BuildRequires:	java-rhino < 1.5R4
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	sed >= 4.0
-BuildRequires:	xalan-j
+BuildRequires:	java-xalan
 Requires:	jpackage-utils
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
