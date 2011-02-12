@@ -1,3 +1,5 @@
+# NOTE: there is bsf 3.1 now, bsf 2 and bsf 3 implement different specs;
+#       so move 2.4 to java-bsf2.spec and upgrade this to 3.1 or the opposite
 %include	/usr/lib/rpm/macros.java
 #
 %define		pkgname	bsf
@@ -5,18 +7,21 @@
 Summary:	Bean Scripting Framework
 Summary(pl.UTF-8):	Bean Scripting Framework - środowisko skryptowe
 Name:		java-%{pkgname}
-Version:	2.3.0
-Release:	2
+Version:	2.4.0
+Release:	1
 License:	Apache v1.1
 Group:		Development/Languages/Java
-Source0:	http://cvs.apache.org/dist/jakarta/bsf/v2.3.0rc1/src/%{pkgname}-src-%{version}.tar.gz
-# Source0-md5:	78bae3747ca5734bb7554eed6868b7da
+Source0:	http://www.apache.org/dist/jakarta/bsf/source/%{pkgname}-src-%{version}.tar.gz
+# Source0-md5:	7e58b2a009c0f70ab36bbef420b25c07
+Patch0:		%{name}-buildprops.patch
 URL:		http://jakarta.apache.org/bsf/
 BuildRequires:	ant
 BuildRequires:	jacl
 BuildRequires:	jpackage-utils
+BuildRequires:	java-commons-logging
 BuildRequires:	java-netrexx
-#BuildRequires:	java-rhino < 1.5R4
+BuildRequires:	java-rhino
+#BuildRequires:	jython < 2.5
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	sed >= 4.0
@@ -47,29 +52,23 @@ Dokumentacja do Bean Scripting Framework.
 
 %prep
 %setup -qn %{pkgname}-%{version}
-
-# hack to disable rhino engine (not ready for new rhino debugger API)
-sed -i -e 's/available property="rhino.present/available property="rhino.blah/' \
-	src/bsf/build.xml
-
-# jython obsoleted jpython long time ago - don't try to build
-sed -i -e 's/available property="jpython.present/available property="jpython.blah/' \
-	src/bsf/build.xml
+%patch0 -p1
 
 %build
-required_jars="jacl jython NetRexxC NetRexxR xalan xsltc"
+# disabled: jython (not ready for 2.5)
+required_jars="commons-logging jacl tcljava js NetRexxC NetRexxR xalan xsltc"
 export CLASSPATH=$(build-classpath $required_jars)
-%ant -f src/build.xml compile javadocs
+%ant compile javadocs
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_javadir}
 
-install src/build/lib/%{pkgname}.jar $RPM_BUILD_ROOT%{_javadir}/%{pkgname}-%{version}.jar
+install lib/%{pkgname}.jar $RPM_BUILD_ROOT%{_javadir}/%{pkgname}-%{version}.jar
 ln -s %{pkgname}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{pkgname}.jar
 
 install -d $RPM_BUILD_ROOT%{_javadocdir}/%{pkgname}-%{version}
-cp -a src/build/javadocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{pkgname}-%{version}
+cp -a build/javadocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{pkgname}-%{version}
 ln -s %{pkgname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{pkgname} # ghost symlink
 
 %clean
@@ -80,8 +79,9 @@ ln -nfs %{pkgname}-%{version} %{_javadocdir}/%{pkgname}
 
 %files
 %defattr(644,root,root,755)
-%doc license.txt src/{AUTHORS,CHANGES,README,TODO}
-%{_javadir}/*.jar
+%doc AUTHORS.txt CHANGES.txt LICENSE.txt NOTICE.txt README.txt RELEASE-NOTE.txt TODO.txt
+%{_javadir}/bsf-%{version}.jar
+%{_javadir}/bsf.jar
 
 %files javadoc
 %defattr(644,root,root,755)
