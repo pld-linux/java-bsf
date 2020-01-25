@@ -1,6 +1,5 @@
 # NOTE: there is bsf 3.1 now, bsf 2 and bsf 3 implement different specs;
 #       so move 2.4 to java-bsf2.spec and upgrade this to 3.1 or the opposite
-%include	/usr/lib/rpm/macros.java
 #
 %define		pkgname	bsf
 #
